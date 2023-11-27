@@ -1,0 +1,12 @@
+import { createBrowserRouter } from "react-router-dom";
+import App from "@/App";
+import { PATH } from "./constants";
+import { DropboxPage } from "@/pages";
+
+export const router = createBrowserRouter([
+  {
+    path: PATH.HOME,
+    element: <App />,
+    children: [{ path: PATH.DROP_BOX, element: <DropboxPage /> }],
+  },
+]);
