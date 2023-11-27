@@ -1,17 +1,14 @@
 import { Dropbox } from "@/components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const DropboxPage = () => {
   const [option, setOption] = useState("선택해보세요");
 
-  useEffect(() => {
-    console.log(option);
-  }, [option]);
-
   return (
     <section>
+      <h1>option</h1>
       <Dropbox.Provider changeState={setOption}>
-        <Dropbox.Trigger enableHover={true}>
+        <Dropbox.Trigger>
           <div className="border-2 p-2 rounded-lg">프로필 확인하기</div>
         </Dropbox.Trigger>
         <Dropbox.Menu>
