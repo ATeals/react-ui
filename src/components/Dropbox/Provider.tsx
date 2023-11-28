@@ -1,24 +1,15 @@
-import {
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { OptionValue } from "./type";
+import { createContext, useCallback, useEffect, useRef, useState } from "react";
 
 export const DropboxStateContext = createContext(false);
 export const DropboxOpenActionContext = createContext(() => {});
-export const DropboxsetStateContext = createContext<Dispatch<SetStateAction<any>>>(() => {});
+export const DropboxEnableHoverContext = createContext(false);
 
-export const Provider = <T extends OptionValue>({
+export const Provider = ({
   children,
-  changeState,
+  enableHover = false,
 }: {
   children?: React.ReactNode;
-  changeState: Dispatch<SetStateAction<T>>;
+  enableHover?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,21 +28,29 @@ export const Provider = <T extends OptionValue>({
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
+    return () => document.removeEventListener("click", handleClickOutside);
   }, [handleClickOutside, isOpen]);
 
   return (
     <DropboxOpenActionContext.Provider value={toggleIsOpen}>
-      <DropboxsetStateContext.Provider value={changeState}>
+      <DropboxEnableHoverContext.Provider value={enableHover}>
         <DropboxStateContext.Provider value={isOpen}>
-          <div className="relative inline-block" ref={dropdownRef}>
-            {children}
-          </div>
+          {enableHover ? (
+            <div
+              onMouseOver={() => setIsOpen(true)}
+              onMouseLeave={() => setIsOpen(false)}
+              className="relative inline-block"
+              ref={dropdownRef}
+            >
+              {children}
+            </div>
+          ) : (
+            <div className="relative inline-block" ref={dropdownRef}>
+              {children}
+            </div>
+          )}
         </DropboxStateContext.Provider>
-      </DropboxsetStateContext.Provider>
+      </DropboxEnableHoverContext.Provider>
     </DropboxOpenActionContext.Provider>
   );
 };
