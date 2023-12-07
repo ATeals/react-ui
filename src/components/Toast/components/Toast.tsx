@@ -20,7 +20,7 @@ export const Toast = ({ toast }: { toast: ToastObject }) => {
       className={generateClassName(
         toast.type === "info" && "bg-gray-200",
         toast.type === "error" && "bg-red-400 text-gray-100",
-        toast.type === "success" && "bg-green-400 text-gray-100",
+        toast.type === "success" && "bg-green-500 text-gray-100",
         "p-2 rounded-md"
       )}
     >

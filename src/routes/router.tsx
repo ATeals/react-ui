@@ -6,15 +6,20 @@ import { Test } from "@/pages/Test";
 import { ToastPage } from "@/pages/ToastPage";
 import { HomePage } from "@/pages/HomePage";
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
+    {
+      path: PATH.HOME,
+      element: <App />,
+      children: [
+        { path: PATH.HOME, element: <HomePage /> },
+        { path: PATH.DROP_BOX, element: <DropboxPage /> },
+        { path: PATH.TOAST, element: <ToastPage /> },
+        { path: PATH.TEST, element: <Test /> },
+      ],
+    },
+  ],
   {
-    path: PATH.HOME,
-    element: <App />,
-    children: [
-      { path: PATH.HOME, element: <HomePage /> },
-      { path: PATH.DROP_BOX, element: <DropboxPage /> },
-      { path: PATH.TOAST, element: <ToastPage /> },
-      { path: PATH.TEST, element: <Test /> },
-    ],
-  },
-]);
+    basename: "/react-ui/",
+  }
+);
