@@ -5,15 +5,15 @@ export const ToastPage = () => {
   const { showToast } = useToast(2000);
 
   const handleErrorToast = () => {
-    showToast({ id: String(Date.now()), type: "error", message: "오류!" });
+    showToast({ type: "error", message: "오류!" });
   };
 
   const handleSuccessToast = () => {
-    showToast({ id: String(Date.now()), type: "success", message: "성공!" });
+    showToast({ type: "success", message: "성공!" });
   };
 
   const handleInfoToast = () => {
-    showToast({ id: String(Date.now()), type: "info", message: "정보!" });
+    showToast({ type: "info", message: "정보!" });
   };
 
   return (

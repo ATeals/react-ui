@@ -13,8 +13,12 @@ export const useToast = (defaultValidateTime?: number) => {
   );
 
   const showToast = useCallback(
-    (toast: ToastObject) => {
-      addToast({ ...toast, validate: toast.validate || defaultValidateTime });
+    (toast: Omit<ToastObject, "id">) => {
+      addToast({
+        ...toast,
+        validate: toast.validate || defaultValidateTime,
+        id: String(Date.now()),
+      });
     },
     [addToast, defaultValidateTime]
   );
